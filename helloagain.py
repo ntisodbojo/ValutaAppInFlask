@@ -27,7 +27,7 @@ def sqrt(number):
 # route vid args
 @app.route('/args')
 def args():
-    return "malin is %s" % request.args.get("malin","missing")
+    return "bosse is %s" % request.args.get("bosse","missing")
 
 
 # method post (and get)
