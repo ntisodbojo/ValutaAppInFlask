@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block body  %}
+
+    <ul>
+    {% for message in messages %}
+        <li >{{ message }}</li>
+    {% endfor %}
+    </ul>
+
+
+    <form id="form1" action="/message" method="post">
+   <input name='message' type="text">
+   <input type="submit" value="skicka" >
+    </form>"
+
+{%  endblock  %}

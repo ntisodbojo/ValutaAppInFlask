@@ -1,7 +1,11 @@
 from flask import Flask, render_template, request
 
+import forex
 app = Flask(__name__)
 
+
+
+messages=["hej"]
 
 #default methods is GET
 
@@ -25,23 +29,34 @@ def sqrt(number):
 
 
 # route vid args
-@app.route('/args')
+@app.route('/forex')
 def args():
-    return "bosse is %s" % request.args.get("bosse","missing")
+
+    tocurrency = request.args.get("to")
+    fromcurrency = request.args.get("from")
+    amount = request.args.get("amount")
+
+    res = forex.convert(fromcurrency,tocurrency,float(amount))
+
+    return str(res)
 
 
 # method post (and get)
 @app.route('/message',methods = ['GET', 'POST'])
 def message():
+
     if request.method == 'POST':
 
-        newmessage = request.form.get('message')
 
-        return newmessage
+
+        newmessage = request.form.get('message')
+        messages.append(newmessage)
+
+        return render_template("message.html", messages=messages)
 
     elif request.method == 'GET':
 
-        return "write a form"
+        return render_template("message.html", messages=messages)
     else:
 
         return "unsupported method"
